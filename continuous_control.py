@@ -45,7 +45,7 @@ def ddpg(n_episodes=30):
             dones = env_info.local_done                         # see if episode finished
             agent.step(states, actions, rewards, next_states,
                        dones)                                   # Save experience and learn
-            scores += rewards                                   # update the score
+            episode_scores += rewards                           # update the score
             states = next_states                                # roll over state to next time step
             if np.any(dones):                                            # exit loop if episode finished
                 break
