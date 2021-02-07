@@ -54,7 +54,7 @@ def ddpg(n_episodes=100):
             ax = fig.add_subplot(111)
             plt.plot(np.arange(1, len(scores)+1), scores)
             plt.ylabel('Score')
-            plt.xlabel(f'Episode {i_episode}')
+            plt.xlabel('Episode {} Average Score: {:.2f}'.format(i_episode, np.mean(scores_deque)))
             plt.show()
         if np.mean(scores_deque)>=30:
             torch.save(agent.actor_local.state_dict(), 'checkpoint_actor.pth')
