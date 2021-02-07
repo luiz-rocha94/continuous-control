@@ -27,7 +27,7 @@ state_size = states.shape[1]
 # create the agent
 agent = Agent(state_size=state_size, action_size=action_size, random_seed=10)
 
-def ddpg(n_episodes=10):
+def ddpg(n_episodes=100):
     scores_deque = deque(maxlen=100)
     scores = []
     for i_episode in range(1, n_episodes+1):
@@ -49,6 +49,13 @@ def ddpg(n_episodes=10):
         scores_deque.append(score)
         scores.append(score)
         print('\rEpisode {}\tAverage Score: {:.2f}\tScore: {:.2f}'.format(i_episode, np.mean(scores_deque), score), end="")
+        if i_episode % 10 == 0:
+            fig = plt.figure()
+            ax = fig.add_subplot(111)
+            plt.plot(np.arange(1, len(scores)+1), scores)
+            plt.ylabel('Score')
+            plt.xlabel(f'Episode {i_episode}')
+            plt.show()
         if np.mean(scores_deque)>=30:
             torch.save(agent.actor_local.state_dict(), 'checkpoint_actor.pth')
             torch.save(agent.critic_local.state_dict(), 'checkpoint_critic.pth')
