@@ -17,7 +17,7 @@ LR_ACTOR = 1e-4         # learning rate of the actor
 LR_CRITIC = 3e-4        # learning rate of the critic
 WEIGHT_DECAY = 0.0001   # L2 weight decay
 UPDATE_EVERY = 10       # how often to update the network
-UPDATE_N_TIMES = 5
+UPDATE_N_TIMES = 5      # how many times agent will learn
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
