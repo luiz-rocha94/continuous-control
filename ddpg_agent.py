@@ -8,9 +8,11 @@ from model import Actor, Critic
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+from torch import cuda
+
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
-BATCH_SIZE = 150        # minibatch size
+BATCH_SIZE = 1024       # minibatch size
 GAMMA = 0.99            # discount factor
 TAU = 1e-3              # for soft update of target parameters
 LR_ACTOR = 1e-4         # learning rate of the actor 
@@ -18,6 +20,12 @@ LR_CRITIC = 1e-3        # learning rate of the critic
 WEIGHT_DECAY = 0        # L2 weight decay
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+cuda.init()
+cuda.empty_cache()
+print(f"""Cuda status:
+      available: {cuda.is_available()} 
+      current: {cuda.current_device()} 
+      name: {cuda.get_device_name(cuda.current_device())}\n\n""")
 
 class Agent():
     """Interacts with and learns from the environment."""
@@ -101,7 +109,7 @@ class Agent():
         critic_loss = F.mse_loss(Q_expected, Q_targets)
         # Minimize the loss
         self.critic_optimizer.zero_grad()
-        critic_loss.backward()
+        critic_loss.backward(retain_graph=True)
         self.critic_optimizer.step()
 
         # ---------------------------- update actor ---------------------------- #
@@ -110,7 +118,7 @@ class Agent():
         actor_loss = -self.critic_local(states, actions_pred).mean()
         # Minimize the loss
         self.actor_optimizer.zero_grad()
-        actor_loss.backward()
+        actor_loss.backward(retain_graph=True)
         self.actor_optimizer.step()
 
         # ----------------------- update target networks ----------------------- #

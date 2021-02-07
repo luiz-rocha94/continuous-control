@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 from ddpg_agent import Agent
 
-env = UnityEnvironment(file_name=r'D:\deep-reinforcement-learning\p2_continuous-control\Reacher_Windows_x86_64\Reacher.exe')
+env = UnityEnvironment(file_name=r'D:\deep-reinforcement-learning\p2_continuous-control\20-Reacher_Windows_x86_64\Reacher.exe')
 # get the default brain
 brain_name = env.brain_names[0]
 brain = env.brains[brain_name]
@@ -27,7 +27,7 @@ action_size = brain.vector_action_space_size
 states = env_info.vector_observations
 state_size = states.shape[1]
 # create the agent
-agent = Agent(state_size=state_size, action_size=action_size, random_seed=5)
+agent = Agent(state_size=state_size, action_size=action_size, random_seed=2)
 
 def ddpg(n_episodes=30):
     scores_deque = deque(maxlen=100)
@@ -53,7 +53,7 @@ def ddpg(n_episodes=30):
         scores_deque.append(score)
         scores.append(score)
         print('\rEpisode {}\tAverage Score: {:.2f}\tScore: {:.2f}'.format(i_episode, np.mean(scores_deque), score), end="")
-        if i_episode % 30 == 0:
+        if i_episode % 10 == 0:
             fig = plt.figure()
             ax = fig.add_subplot(111)
             plt.plot(np.arange(1, len(scores)+1), scores)
