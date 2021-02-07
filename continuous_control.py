@@ -47,7 +47,7 @@ def ddpg(n_episodes=30):
                        dones)                                   # Save experience and learn
             episode_scores += rewards                           # update the score
             states = next_states                                # roll over state to next time step
-            if np.any(dones):                                            # exit loop if episode finished
+            if np.any(dones):                                   # exit loop if episode finished
                 break
         score = np.mean(episode_scores)
         scores_deque.append(score)
