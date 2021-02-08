@@ -27,9 +27,9 @@ action_size = brain.vector_action_space_size
 states = env_info.vector_observations
 state_size = states.shape[1]
 # create the agent
-agent = Agent(state_size=state_size, action_size=action_size, random_seed=2)
+agent = Agent(state_size=state_size, action_size=action_size, random_seed=5)
 
-def ddpg(n_episodes=100):
+def ddpg(n_episodes=300):
     scores_deque = deque(maxlen=100)
     scores = []
     for i_episode in range(1, n_episodes+1):
@@ -91,7 +91,7 @@ while True:
     dones = env_info.local_done                         # see if episode finished
     episode_scores += rewards                           # update the score
     states = next_states                                # roll over state to next time step
-    if np.any(dones):                                            # exit loop if episode finished
+    if np.any(dones):                                   # exit loop if episode finished
         break
         
 env.close()
