@@ -8,7 +8,6 @@ from model import Actor, Critic
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-from torch import cuda
 
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
@@ -20,12 +19,6 @@ LR_CRITIC = 1e-3        # learning rate of the critic
 WEIGHT_DECAY = 0        # L2 weight decay
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-cuda.init()
-cuda.empty_cache()
-print(f"""Cuda status:
-      available: {cuda.is_available()} 
-      current: {cuda.current_device()} 
-      name: {cuda.get_device_name(cuda.current_device())}\n\n""")
 
 class Agent():
     """Interacts with and learns from the environment."""
