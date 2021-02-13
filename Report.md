@@ -1,18 +1,17 @@
 # report
 
-With project recomendation i start coping dqn files and navigation files, then the first change is in model where i change state_size for 37.
+With project recomendation i start coping DDPG-pendulum files and continuous control files, then the first change is in model where i change state size and action size.
 
 After i implement all code by traing an Agent for check if input and output was correct.
 
-The number of nodes in hidden layer was find by test with 148 and 296 nodes where 296 nodes have best score by the graph.
+The number of nodes in hidden layers (h1, h2) was find by test with (264, 132) and (528, 264) nodes where (264, 132) nodes have best score by the graph.
 
-The batch_size and update_every values as seted considering enverinmont time stemp.
+The batch_size as seted considering enverinmont time stemp and 20 parallel agents.
 
-The epsilon_decay value as seted considereng start_epsilon and end_epsilon where the epsilon decrease in each episode, 
-this define more learning action and less random action along the episodes.
+I have problem with noise and find a fix in class chat where i used np.random.standard_normal(size) instead np.array([random.random() for i in range(len(x))])
 
 this graph show average score for episode.
 
 ![plot image](plot.png)
 
-For future i wound like to use generic algoritms for test the hyperparameters.
+For future i wound like to use diffent hyperparameters for each agent.

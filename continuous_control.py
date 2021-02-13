@@ -28,7 +28,7 @@ agent = Agent(state_size=state_size, action_size=action_size, random_seed=4)
 def ddpg(n_episodes=200):
     scores_deque      = deque(maxlen=100) # last 100 scores
     scores            = []                # all scores       
-    max_average_score = 0                 # max average score in one episode
+    max_average_score = 0                 # max average score
     for i_episode in range(1, n_episodes+1):
         agent.reset()                                           # reset noise    
         env_info       = env.reset(train_mode=True)[brain_name] # reset the environment    
@@ -49,10 +49,10 @@ def ddpg(n_episodes=200):
         score = np.mean(episode_scores)                         # mean episode score
         scores_deque.append(score)      
         scores.append(score)
-        average_score = np.mean(scores_deque)
+        average_score = np.mean(scores_deque)                   # average score
         print('\rEpisode {}\tAverage Score: {:.2f}\tScore: {:.2f}'.format(i_episode, average_score, score), end="")
         if average_score > max_average_score and average_score >= 30:
-            # Save best score
+            # Save best agent
             torch.save(agent.actor_local.state_dict(), 'checkpoint_actor.pth')
             torch.save(agent.critic_local.state_dict(), 'checkpoint_critic.pth')
         max_average_score = max(max_average_score, average_score)
