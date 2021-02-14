@@ -14,4 +14,5 @@ this graph show average score for episode.
 
 ![plot image](plot.png)
 
-For future i wound like to consider the sequence of states and actions to use expected return of trajectory.
+How is able to see in the graph the agent performance is instable after 50 episodes then for future i wound like to consider the sequence of states and actions,
+the main idea is make the agent learn the best sequence of moviments then for it i suggest to use expected return of trajectory and prioritized experience replay.
