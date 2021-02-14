@@ -14,4 +14,4 @@ this graph show average score for episode.
 
 ![plot image](plot.png)
 
-For future i wound like to use diffent hyperparameters for each agent.
+For future i wound like to consider the sequence of states and actions to use expected return of trajectory.
